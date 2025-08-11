@@ -1,0 +1,76 @@
+#cloud-config
+autoinstall:
+  version: 1
+  refresh-installer:
+   update: true
+   channel: latest/beta
+  storage:
+    layout:
+      name: lvm
+      sizing-policy: all
+      password: Ismail!master
+  ubuntu-pro:
+    token: C13FDdLcFagabS95Cfi2ZPjHX8Csfd
+  #keyboard:
+    #layout: gb
+  locale: C.UTF-8
+  timezone: geoip
+  interactive-sections:
+    - identity
+  snaps:
+    - name: sosreport
+      classic: true
+  shutdown: reboot
+  packages:
+    - ubuntu-pro-client
+    - vim
+    - landscape-client
+    - libnss3-tools
+    - git
+    - openssh-server
+    - printer-driver-fujixerox
+    - cifs-utils
+    - curl
+    - expect
+    - keyutils
+    - libpwquality-tools
+    - net-tools
+    - ntpdate
+    - timeshift
+    #- linux-oem-24.04
+    - nvidia-driver-535
+    #- linux-modules-nvidia-535-generic-hwe-24.04
+    #- linux-modules-nvidia-535-oem-24.04
+  user-data:
+    users:
+       - name: itadmin
+         gecos: 'ITAdmin User'
+         passwd: '$6$ZE4WV3QRJhPUnsNv$zmbadGTmE4BnoUT/d8AnQtDQymr/NGo6dI.kYjNYIsfs76vGpAC6FgIHa.hNixHoRIh.S8QlC/WP65qR53rDM0'
+         groups: sudo
+         shell: /bin/bash
+         lock-passwd: false
+    write_files:
+    - path: /root/encrypted.flag
+      content: |
+        This is an Encrypted machine
+      owner: 'root:root'
+      permissions: '0644'
+    landscape:
+      client:
+        computer_title: "NEWBUILD-Encrypted"
+        tags: "Ubuntu_24_04-machine,apt-external-repos"
+        access_group: "new-starter"
+        include_manager_plugins: ScriptExecution
+        script_users: "root,landscape"
+        account_name: standalone
+        registration_key: ZF97TWUN1SMALNLUC9
+        url: "https://landscape.dyson.com/message-system"
+        ping_url: "http://landscape.dyson.com/ping"
+        log_level: "info"
+        data_path: "/var/lib/landscape/client"
+  late-commands:
+    - curtin in-target -- snap remove thunderbird
+    - curtin in-target -- apt purge -y bluez-obexd
+    - curtin in-target -- groupadd -g 3100 rddsudo
+    - curtin in-target -- groupadd -g 3101 dietsudo
+
