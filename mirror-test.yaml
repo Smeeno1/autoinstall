@@ -1,0 +1,26 @@
+#cloud-config
+autoinstall:
+  version: 1
+  apt:
+    preserve_sources_list: false
+    geoip: false
+    mirror-selection:
+      primary:
+        - arches: 
+          - amd64 
+          - arm64
+          - i386
+          uri: "http://mirror.cov.ukservers.com/ubuntu/"
+      security:
+        - arches: 
+          - amd64
+          - arm64
+          - i386
+          uri: "http://mirror.cov.ukservers.com/ubuntu/dists/noble-security/"
+    fallback: abort
+  identity:
+    hostname: mirror-test
+    username: ubuntu
+    password: "$6$MRXE.hlBCHhAGzZ.$tmNITS/SR.SlHjiWk9KxysG43Fk9uP.NvkpyiI7HKjjiCpoW6tZWc4LVQlv1IjtyS976Kk1fzSQj0zL/onETX/"
+  storage:
+    layout: { name: direct }
