@@ -16,7 +16,7 @@ autoinstall:
           - amd64
           - arm64
           - i386
-          uri: "http://mirror.cov.ukservers.com/ubuntu/dists/noble-security/"
+          uri: "http://mirror.cov.ukservers.com/ubuntu/"
     fallback: abort
   identity:
     hostname: mirror-test
