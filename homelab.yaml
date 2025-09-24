@@ -1,0 +1,21 @@
+#cloud-config
+autoinstall:
+  version: 1
+  identity:
+    hostname: smee-PowerEdge-R630
+    username: smee
+    password: "$6$MRXE.hlBCHhAGzZ.$tmNITS/SR.SlHjiWk9KxysG43Fk9uP.NvkpyiI7HKjjiCpoW6tZWc4LVQlv1IjtyS976Kk1fzSQj0zL/onETX/"
+  storage:
+    layout: lvm
+    sizing-policy: all
+  locale: C.UTF-8
+  timezone: geoip
+  ubuntu-pro:
+    token: C13hma43AfwUNfg6HC6tKSv69uKTGR  
+  user-data:
+    write_files:
+    - path: /etc/sudoers.d/sudosmee
+      content: |
+        smee ALL=(ALL) NOPASSWD:ALL
+      owner: 'root:root'
+      permissions: '0440'    
