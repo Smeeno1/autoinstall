@@ -14,7 +14,7 @@ autoinstall:
     users:
       -name: smee
        gecos: 'Smee'
-       password: "$6$MRXE.hlBCHhAGzZ.$tmNITS/SR.SlHjiWk9KxysG43Fk9uP.NvkpyiI7HKjjiCpoW6tZWc4LVQlv1IjtyS976Kk1fzSQj0zL/onETX/"
+       password: '$6$MRXE.hlBCHhAGzZ.$tmNITS/SR.SlHjiWk9KxysG43Fk9uP.NvkpyiI7HKjjiCpoW6tZWc4LVQlv1IjtyS976Kk1fzSQj0zL/onETX/'
        groups: sudo
        shell: /bin/bash
        lock-passwd: false
