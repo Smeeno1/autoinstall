@@ -3,6 +3,9 @@ autoinstall:
   version: 1
   identity:
     hostname: smee-PowerEdge-R630
+    username: smee
+    realname: 'Smee'
+    password: '$6$MRXE.hlBCHhAGzZ.$tmNITS/SR.SlHjiWk9KxysG43Fk9uP.NvkpyiI7HKjjiCpoW6tZWc4LVQlv1IjtyS976Kk1fzSQj0zL/onETX/'
   storage:
     layout: lvm
     sizing-policy: all
@@ -11,13 +14,6 @@ autoinstall:
   ubuntu-pro:
     token: C13hma43AfwUNfg6HC6tKSv69uKTGR  
   user-data:
-    users:
-      -name: smee
-       gecos: 'Smee'
-       password: '$6$MRXE.hlBCHhAGzZ.$tmNITS/SR.SlHjiWk9KxysG43Fk9uP.NvkpyiI7HKjjiCpoW6tZWc4LVQlv1IjtyS976Kk1fzSQj0zL/onETX/'
-       groups: sudo
-       shell: /bin/bash
-       lock-passwd: false
     write_files:
     - path: /etc/sudoers.d/sudosmee
       content: |
