@@ -55,4 +55,6 @@ autoinstall:
     - curtin in-target -- apt purge -y bluez-obexd
     - curtin in-target -- groupadd -g 3100 rddsudo
     - curtin in-target -- groupadd -g 3101 dietsudo
-    - curtin in-target -- ubuntu-drivers autoinstall
+    - curtin in-target -- ubuntu-drivers install nvidia:580
+    - curtin in-target -- apt install -y nvidia-utils-580
+      
