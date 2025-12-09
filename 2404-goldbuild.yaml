@@ -42,7 +42,7 @@ autoinstall:
     users:
        - name: itadmin
          gecos: 'ITAdmin User'
-         passwd: '$6$ZE4WV3QRJhPUnsNv$zmbadGTmE4BnoUT/d8AnQtDQymr/NGo6dI.kYjNYIsfs76vGpAC6FgIHa.hNixHoRIh.S8QlC/WP65qR53rDM0'
+         passwd: 'itadmin123$'
          groups: sudo
          shell: /bin/bash
          lock-passwd: false
