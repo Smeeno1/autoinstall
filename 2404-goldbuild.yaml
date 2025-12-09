@@ -98,10 +98,8 @@ autoinstall:
     - curtin in-target -- apt install -y nvidia-utils-580
     - curtin in-target -- mkdir -m 0700 -p /root/.goldbuild
     - curtin in-target -- wget http://10.205.18.11/bld/buildfiles_encrypted-v0.01.tgz -O /root/.goldbuild/buildfiles_encrypted-v0.01.tgz
-    - curtin in-target -- wget http://10.205.18.11/bld/build_24.04_v0.01_encrypted.sh -O /root/.goldbuild/build_encrypted.sh
-    - curtin in-target -- chmod u+x /root/.goldbuild/build_encrypted.sh
-    - curtin in-target -- mkdir -p /var/lib/shim-signed/mok/
-    - curtin in-target -- chmod u+x /root/.goldbuild/build_encrypted.sh
+    - curtin in-target -- wget http://10.205.18.11/bld/build_24.04_v0.01_encrypted.sh -O /root/.goldbuild/device-config.sh
+    - curtin in-target -- chmod u+x /root/.goldbuild/device-config.sh
     - curtin in-target -- mkdir -p /var/lib/shim-signed/mok/
     - curtin in-target -- wget http://10.205.18.11/bld/MOK/MOK.der -O /var/lib/shim-signed/mok/MOK.der
     - curtin in-target -- wget http://10.205.18.11/bld/MOK/MOK.pem -O /var/lib/shim-signed/mok/MOK.pem
