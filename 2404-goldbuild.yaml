@@ -10,9 +10,7 @@ autoinstall:
       sizing-policy: all
       password: Ismail!master
   ubuntu-pro:
-    token: C13FDdLcFagabS95Cfi2ZPjHX8Csfd
-  #keyboard:
-    #layout: gb
+    token: pro-token-here
   locale: C.UTF-8
   timezone: geoip
   interactive-sections:
@@ -37,10 +35,9 @@ autoinstall:
     - net-tools
     - ntpdate
     - timeshift
-    #- linux-oem-24.04
-    - nvidia-driver-535
-    #- linux-modules-nvidia-535-generic-hwe-24.04
-    #- linux-modules-nvidia-535-oem-24.04
+    - build-essential
+    - python3-wheel
+    - mokutil
   user-data:
     users:
        - name: itadmin
@@ -50,20 +47,40 @@ autoinstall:
          shell: /bin/bash
          lock-passwd: false
     write_files:
-    - path: /root/encrypted.flag
-      content: |
-        This is an Encrypted machine
-      owner: 'root:root'
-      permissions: '0644'
+      - content: |
+          This is an Encrypted machine
+        path: /root/encrypted.flag
+        owner: 'root:root'
+        permissions: '0644'
+#      - content: |
+#          $6$PK0pG/yzt$m78Gw/dJLQrhEJf3it6ichBwzli2lJq1Uoe0jCiTS03DzCcJGLIVBC4zl4yXa8QxvGksxUifOycxFBSSNTPLO.
+#        path: /var/lib/shim-signed/mok/hashfile
+#        owner: 'root:root'
+#        permissions: '0644'
+      - content: |
+           Please read and follow these instructions:
+
+           1  Open a terminal
+           2  Run the command: sudo /root/.goldbuild/build_encrypted.sh
+           3  Follow the instructions
+
+           At this point you may shutdown the machine if needed and run the following later:
+
+           4  Go and get user
+           5  Run the command: sudo /root/.goldbuild/scripts/itadmin/ITbar-user-tasks.sh
+        path: /home/itadmin/Desktop/ITbar-instructions.txt
+        owner: 'itadmin:itadmin'
+        permissions: '0644'
+        defer: true
     landscape:
       client:
-        computer_title: "NEWBUILD-Encrypted"
-        tags: "Ubuntu_24_04-machine,apt-external-repos"
+        computer_title: "NEWBUILD-Encrypted-ChangeMe"
+        tags: "Ubuntu_24_04-machine,apt-external-repos-noble,snaps_check,sudo_command_check,usbguard_check"
         access_group: "new-starter"
         include_manager_plugins: ScriptExecution
         script_users: "root,landscape"
         account_name: standalone
-        registration_key: ZF97TWUN1SMALNLUC9
+        registration_key: landscape-key-here
         url: "https://landscape.dyson.com/message-system"
         ping_url: "http://landscape.dyson.com/ping"
         log_level: "info"
@@ -71,6 +88,24 @@ autoinstall:
   late-commands:
     - curtin in-target -- snap remove thunderbird
     - curtin in-target -- apt purge -y bluez-obexd
-    - curtin in-target -- groupadd -g 3100 rddsudo
+    - curtin in-target -- groupadd -g 310 rddsudo
     - curtin in-target -- groupadd -g 3101 dietsudo
-
+    - curtin in-target -- groupadd -g 3102 rddsudox
+    - curtin in-target -- groupadd -g 3103 rddsudoxx
+    - curtin in-target -- groupadd -g 3104 rddsudoxxx
+    - curtin in-target -- dpkg --remove-architecture i386
+    - curtin in-target -- ubuntu-drivers install nvidia:580
+    - curtin in-target -- apt install -y nvidia-utils-580
+    - curtin in-target -- mkdir -m 0700 -p /root/.goldbuild
+    - curtin in-target -- wget http://10.205.18.11/bld/buildfiles_encrypted-v0.01.tgz -O /root/.goldbuild/buildfiles_encrypted-v0.01.tgz
+    - curtin in-target -- wget http://10.205.18.11/bld/build_24.04_v0.01_encrypted.sh -O /root/.goldbuild/build_encrypted.sh
+    - curtin in-target -- chmod u+x /root/.goldbuild/build_encrypted.sh
+    - curtin in-target -- mkdir -p /var/lib/shim-signed/mok/
+    - curtin in-target -- chmod u+x /root/.goldbuild/build_encrypted.sh
+    - curtin in-target -- mkdir -p /var/lib/shim-signed/mok/
+    - curtin in-target -- wget http://10.205.18.11/bld/MOK/MOK.der -O /var/lib/shim-signed/mok/MOK.der
+    - curtin in-target -- wget http://10.205.18.11/bld/MOK/MOK.pem -O /var/lib/shim-signed/mok/MOK.pem
+    - curtin in-target -- wget http://10.205.18.11/bld/MOK/MOK.priv -O /var/lib/shim-signed/mok/MOK.priv
+    - curtin in-target -- wget http://10.205.18.11/bld/MOK/hashfile -O /var/lib/shim-signed/mok/hashfile
+  runcmd:
+    - curtin in-target -- mokutil --import /var/lib/shim-signed/mok/MOK.der --hash-file /var/lib/shim-signed/mok/hashfile
